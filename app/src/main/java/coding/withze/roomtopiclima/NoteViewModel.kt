@@ -14,7 +14,7 @@ class NoteViewModel(app : Application):AndroidViewModel(app) {
 
     init{
         allNote = MutableLiveData()
-        getAllUsers()
+        getAllNote()
     }
     fun getAllNoteObservers(): MutableLiveData<List<DataNote>> {
         return allNote
@@ -22,12 +22,32 @@ class NoteViewModel(app : Application):AndroidViewModel(app) {
 
 
 
-    fun getAllUsers() {
+    fun getAllNote() {
         GlobalScope.launch {
             val userDao = NoteDatabase.getInstance(getApplication())!!.noteDao()
             val listnote = userDao.getDataNote()
             allNote.postValue(listnote)
         }
     }
+
+    fun insertNote(entity: DataNote){
+        val noteDao = NoteDatabase.getInstance(getApplication())?.noteDao()
+        noteDao!!.insertNote(entity)
+        getAllNote()
+    }
+
+    fun deleteNote(entity: DataNote){
+        val userDao = NoteDatabase.getInstance(getApplication())!!.noteDao()
+        userDao?.deleteNote(entity)
+        getAllNote()
+    }
+
+    fun updateNote(entity: DataNote){
+        val userDao = NoteDatabase.getInstance(getApplication())!!.noteDao()
+        userDao?.updateNote(entity)
+        getAllNote()
+    }
+
+
 
 }
