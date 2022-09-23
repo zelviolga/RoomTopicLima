@@ -10,6 +10,7 @@ import coding.withze.roomtopiclima.room.DataNote
 import coding.withze.roomtopiclima.room.NoteDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import java.util.ArrayList
 
 class NoteAdapter(var listNote : List<DataNote>):RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     var DBNote : NoteDatabase? = null
@@ -38,13 +39,23 @@ class NoteAdapter(var listNote : List<DataNote>):RecyclerView.Adapter<NoteAdapte
         }
 
         holder.binding.btnEditNote.setOnClickListener {
-            var move = Intent(it.context, MainActivity::class.java)
-            move.putExtra("data", listNote[position])
+            var move = Intent(it.context, EditActivity::class.java)
+            move.putExtra("dataedit", listNote[position])
             it.context.startActivity(move)
+        }
+        holder.binding.klik.setOnClickListener{
+            var detail = Intent(it.context, DetailNoteActivity::class.java)
+            detail.putExtra("detail", listNote[position])
+            it.context.startActivity(detail)
         }
     }
 
     override fun getItemCount(): Int {
         return  listNote.size
+    }
+
+    fun setNoteData(listNote: ArrayList<DataNote>)
+    {
+        this.listNote=listNote
     }
 }
