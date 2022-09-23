@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         noteVm()
 
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+
         noteViewModel.getAllNoteObservers().observe(this, Observer {
             adapterNote.setNoteData(it as ArrayList<DataNote>)
         })
-
 
         binding.btnAddNote.setOnClickListener{
             startActivity(Intent(this, AddNoteActivity::class.java))

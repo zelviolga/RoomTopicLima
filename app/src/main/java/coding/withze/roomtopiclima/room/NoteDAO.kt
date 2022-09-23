@@ -17,6 +17,4 @@ interface NoteDAO {
     @Update
     fun updateNote(note: DataNote)
 
-
-
 }
